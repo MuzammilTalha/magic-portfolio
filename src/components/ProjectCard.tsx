@@ -6,11 +6,12 @@ import { useTranslations } from 'next-intl';
 
 interface ProjectCardProps {
     href: string;
-    images: string[];
+    images?: string[];  // Make images optional
     title: string;
     content: string;
     description: string;
     avatars: { src: string }[];
+    showImages?: boolean; // Add new prop to control image visibility
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -19,7 +20,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     title,
     content,
     description,
-    avatars
+    avatars,
+    showImages = false  // Default to false to hide images
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
@@ -63,47 +65,51 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <Flex
             fillWidth gap="m"
             direction="column">
-            <Flex onClick={handleImageClick}>
-            <RevealFx
-                    style={{width: '100%'}}
-                    delay={0.4}
-                    trigger={isTransitioning}
-                    speed="fast">
-                    <SmartImage
-                        tabIndex={0}
-                        radius="l"
-                        alt={title}
-                        aspectRatio="16 / 9"
-                        src={images[activeIndex]}
-                        style={{
-                            border: '1px solid var(--neutral-alpha-weak)',
-                            ...(images.length > 1 && {
-                                cursor: 'pointer',
-                            }),
-                        }}/>
-                </RevealFx>
-            </Flex>
-            {images.length > 1 && (
-                <Flex
-                    gap="4" paddingX="s"
-                    fillWidth maxWidth={32}
-                    justifyContent="center">
-                    {images.map((_, index) => (
+            {showImages && images.length > 0 && (
+                <>
+                    <Flex onClick={handleImageClick}>
+                    <RevealFx
+                            style={{width: '100%'}}
+                            delay={0.4}
+                            trigger={isTransitioning}
+                            speed="fast">
+                            <SmartImage
+                                tabIndex={0}
+                                radius="l"
+                                alt={title}
+                                aspectRatio="16 / 9"
+                                src={images[activeIndex]}
+                                style={{
+                                    border: '1px solid var(--neutral-alpha-weak)',
+                                    ...(images.length > 1 && {
+                                        cursor: 'pointer',
+                                    }),
+                                }}/>
+                        </RevealFx>
+                    </Flex>
+                    {images.length > 1 && (
                         <Flex
-                            key={index}
-                            onClick={() => handleControlClick(index)}
-                            style={{
-                                background: activeIndex === index 
-                                    ? 'var(--neutral-on-background-strong)' 
-                                    : 'var(--neutral-alpha-medium)',
-                                cursor: 'pointer',
-                                transition: 'background 0.3s ease',
-                            }}
-                            fillWidth
-                            height="2">
+                            gap="4" paddingX="s"
+                            fillWidth maxWidth={32}
+                            justifyContent="center">
+                            {images.map((_, index) => (
+                                <Flex
+                                    key={index}
+                                    onClick={() => handleControlClick(index)}
+                                    style={{
+                                        background: activeIndex === index 
+                                            ? 'var(--neutral-on-background-strong)' 
+                                            : 'var(--neutral-alpha-medium)',
+                                        cursor: 'pointer',
+                                        transition: 'background 0.3s ease',
+                                    }}
+                                    fillWidth
+                                    height="2">
+                                </Flex>
+                            ))}
                         </Flex>
-                    ))}
-                </Flex>
+                    )}
+                </>
             )}
             <Flex
                 mobileDirection="column"

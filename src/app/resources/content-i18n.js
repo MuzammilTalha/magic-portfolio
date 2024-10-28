@@ -2,15 +2,15 @@ import { InlineCode } from "@/once-ui/components";
 
 const createI18nContent = (t) => {
     const person = {
-        firstName: 'Selene',
-        lastName:  'Yu',
+        firstName: 'Muzammil Talha',
+        lastName:  'Mohammed',
         get name() {
             return `${this.firstName} ${this.lastName}`;
         },
         role:      t("person.role"),
         avatar:    '/images/avatar.jpg',
         location:  'Asia/Jakarta',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-        languages: ['English', 'Bahasa']  // optional: Leave the array empty if you don't want to display languages
+        languages: ['English', 'Urdu']  // optional: Leave the array empty if you don't want to display languages
     }
 
     const newsletter = {
@@ -25,17 +25,17 @@ const createI18nContent = (t) => {
         {
             name: 'GitHub',
             icon: 'github',
-            link: 'https://github.com/once-ui-system/nextjs-starter',
+            link: 'https://github.com/MuzammilTalha',
         },
         {
             name: 'LinkedIn',
             icon: 'linkedin',
-            link: 'https://www.linkedin.com/company/once-ui/',
+            link: 'https://www.linkedin.com/in/muzammil-mohammed-mm/',
         },
         {
             name: 'X',
             icon: 'x',
-            link: '',
+            link: 'https://x.com/MuzammilTalha',
         },
         {
             name: 'Email',
@@ -82,12 +82,7 @@ const createI18nContent = (t) => {
                     role: t("about.work.experiences.FLY.role"),
                     achievements: t("about.work.experiences.FLY.achievements").split(";"),
                     images: [ // optional: leave the array empty if you don't want to display images
-                        {
-                            src: '/images/projects/project-01/cover-01.jpg',
-                            alt: 'Once UI Project',
-                            width: 16,
-                            height: 9
-                        }
+                        
                     ]
                 },
                 {
@@ -121,30 +116,14 @@ const createI18nContent = (t) => {
                     title: 'Figma',
                     description: <>{t("about.technical.skills.Figma.description")}</>,
                     images: [
-                        {
-                            src: '/images/projects/project-01/cover-02.jpg',
-                            alt: 'Project image',
-                            width: 16,
-                            height: 9
-                        },
-                        {
-                            src: '/images/projects/project-01/cover-03.jpg',
-                            alt: 'Project image',
-                            width: 16,
-                            height: 9
-                        },
+                        
                     ]
                 },
                 {
                     title: 'Next.js',
                     description: <>{t("about.technical.skills.Nextjs.description")}</>, // "." not accepted in next-intl namespace
                     images: [
-                        {
-                            src: '/images/projects/project-01/cover-04.jpg',
-                            alt: 'Project image',
-                            width: 16,
-                            height: 9
-                        },
+                        
                     ]
                 }
             ]

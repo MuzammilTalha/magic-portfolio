@@ -6,9 +6,10 @@ import { ProjectCard } from '@/components';
 interface ProjectsProps {
     range?: [number, number?];
     locale: string;
+    showImages?: boolean;  // Add new prop
 }
 
-export function Projects({ range, locale }: ProjectsProps) {
+export function Projects({ range, locale, showImages = false }: ProjectsProps) {
     let allProjects = getPosts(['src', 'app', '[locale]', 'work', 'projects', locale]);
 
     const sortedProjects = allProjects.sort((a, b) => {
@@ -31,6 +32,7 @@ export function Projects({ range, locale }: ProjectsProps) {
                     title={post.metadata.title}
                     description={post.metadata.summary}
                     content={post.content}
+                    showImages={showImages}
                     avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}/>
             ))}
         </Flex>

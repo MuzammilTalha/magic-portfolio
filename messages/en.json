@@ -11,8 +11,8 @@
         "label": "Home",
         "title": "{name}'s Portfolio",
         "description": "Portfolio website showcasing my work as a {role}",
-        "headline": "Design engineer and builder",
-        "subline": "I'm Selene, a design engineer at FLY, where I craft intuitive user experiences. After hours, I build my own projects."
+        "headline": "Full Stack Java Developer",
+        "subline": "I'm Muzammil, Full Stack Java Developer at ASR, where I work in a Microservice architecture building backend and front end of the application with user experiences. After hours, I build my own projects."
     },
     "about": {
         "label": "About",

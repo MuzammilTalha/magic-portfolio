@@ -6,7 +6,7 @@ const person = {
     get name() {
         return `${this.firstName} ${this.lastName}`;
     },
-    role:      'Design Engineer',
+    role:      'Full Stack Java Engineer',
     avatar:    '/images/avatar.jpg',
     location:  'America/Chicago',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
     languages: ['English', 'Urdu','Hindi']  // optional: Leave the array empty if you don't want to display languages
@@ -14,7 +14,7 @@ const person = {
 
 const newsletter = {
     display: true,
-    title: <>Subscribe to {person.firstName}'s Newsletter</>,
+    title: <>Subscribe to {person.firstName}'s newsletter</>,
     description: <>I occasionally write about design, technology, and share thoughts on the intersection of creativity and engineering.</>
 }
 
@@ -47,8 +47,8 @@ const home = {
     label: 'Home',
     title: `${person.name}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Design engineer and builder</>,
-    subline: <>I'm Selene, a design engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
+    headline: <>Full Stack Java Developer</>,
+    subline: <>I'm Muzammil, a Full Stack engineer at <InlineCode>ASR</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
 }
 
 const about = {
@@ -64,7 +64,7 @@ const about = {
     },
     calendar: {
         display: true,
-        link: 'https://cal.com'
+        link: 'https://cal.com/muzammil-mohammed'
     },
     intro: {
         display: true,
@@ -72,7 +72,7 @@ const about = {
         description: <>Muzammil is a Dallas-based software engineer with a passion for transforming complex challenges into simple, elegant design solutions. Her work spans digital interfaces, interactive experiences, and the convergence of design and technology.</>
     },
     work: {
-        display: true, // set to false to hide this section
+        display: false, // set to false to hide this section
         title: 'Work Experience',
         experiences: [
             {
@@ -84,12 +84,7 @@ const about = {
                     <>Spearheaded the integration of AI tools into design workflows, enabling designers to iterate 50% faster.</>
                 ],
                 images: [ // optional: leave the array empty if you don't want to display images
-                    {
-                        src: '/images/projects/project-01/cover-01.jpg',
-                        alt: 'Once UI Project',
-                        width: 16,
-                        height: 9
-                    }
+                    
                 ]
             },
             {
@@ -109,12 +104,12 @@ const about = {
         title: 'Studies',
         institutions: [
             {
-                name: 'University of Jakarta',
-                description: <>Studied software engineering.</>,
+                name: <i>California University of Management & Sciences</i>,
+                description: <>Studied Masters in Computer Information Systems.</>,
             },
             {
-                name: 'Build the Future',
-                description: <>Studied online marketing and personal branding.</>,
+                name: <i>Jawaharlal Nehru Technological University</i>,
+                description: <>Studied Computer Science and Engineering.</>,
             }
         ]
     },
@@ -126,30 +121,14 @@ const about = {
                 title: 'Figma',
                 description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
                 images: [
-                    {
-                        src: '/images/projects/project-01/cover-02.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                    {
-                        src: '/images/projects/project-01/cover-03.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
+                    
                 ]
             },
             {
                 title: 'Next.js',
                 description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
                 images: [
-                    {
-                        src: '/images/projects/project-01/cover-04.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
+                    
                 ]
             }
         ]
@@ -252,3 +231,12 @@ const gallery = {
 }
 
 export { person, social, newsletter, home, about, blog, work, gallery };
+
+export const substack = {
+    action: 'https://muzammilmohammed.substack.com',
+    effects: {
+        gradient: true,
+        dots: true,
+        lines: false
+    }
+};

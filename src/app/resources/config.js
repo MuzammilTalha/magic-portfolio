@@ -12,15 +12,15 @@ const i18nOptions = {
 const routes = {
     '/':        true,
     '/about':   true,
-    '/work':    true,
+    '/work':    false,
     '/blog':    true,
-    '/gallery': true,
+    '/gallery': false,
 }
 
 // Enable password protection on selected routes
 // Set password in pages/api/authenticate.ts
 const protectedRoutes = {
-    '/work/automate-design-handovers-with-a-figma-to-code-pipeline': true
+    '/work/automate-design-handovers-with-a-figma-to-code-pipeline': false
 }
 
 const effects = {
@@ -46,13 +46,13 @@ const display = {
     time:     true
 }
 
-const mailchimp = {
-    action: 'https://url/subscribe/post?parameters',
+const substack = {
+    action: 'https://muzammilmohammed.substack.com',
     effects: {
         gradient: true,
-        dots:     false,
-        lines:    true,
+        dots: false,
+        lines: true,
     }
 }
 
-export { routes, protectedRoutes, effects, style, display, mailchimp, baseURL, i18n, i18nOptions };
+export { routes, protectedRoutes, effects, style, display, substack, baseURL, i18n, i18nOptions };
