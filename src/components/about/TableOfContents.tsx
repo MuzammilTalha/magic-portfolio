@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Flex, Text } from '@/once-ui/components';
 import styles from './about.module.scss';
 
@@ -8,7 +8,7 @@ interface TableOfContentsProps {
     structure: {
         title: string;
         display: boolean;
-        items: string[];
+        items: ReactNode[];
     }[];
     about: {
         tableOfContent: {
@@ -19,8 +19,15 @@ interface TableOfContentsProps {
 }
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) => {
-    const scrollTo = (id: string, offset: number) => {
-        const element = document.getElementById(id);
+    const scrollTo = (id: ReactNode, offset: number) => {
+        // Convert ReactNode to string if needed
+        const elementId = typeof id === 'string' 
+            ? id 
+            : id && typeof id === 'object' && 'props' in id 
+                ? (id.props?.children?.[0] || '').toString()
+                : '';
+                
+        const element = document.getElementById(elementId);
         if (element) {
             const elementPosition = element.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.scrollY - offset;

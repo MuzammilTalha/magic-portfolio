@@ -4,6 +4,8 @@ import TableOfContents from '@/components/about/TableOfContents';
 import styles from '@/components/about/about.module.scss'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { ContentImage, Experience, Institution, Skill, About as AboutType, RenderContentReturn } from '@/types/content';
+import { ReactNode } from 'react';
 
 export async function generateMetadata(
     {params: {locale}}: { params: { locale: string }}
@@ -43,7 +45,8 @@ export default function About(
 ) {
     unstable_setRequestLocale(locale);
     const t = useTranslations();
-    const {person, about, social } = renderContent(t);
+    const content = renderContent(locale) as unknown as RenderContentReturn;
+    const {person, about, social } = content;
     const structure = [
         { 
             title: about.intro.title,
@@ -53,17 +56,17 @@ export default function About(
         { 
             title: about.work.title,
             display: about.work.display,
-            items: about.work.experiences.map(experience => experience.company)
+            items: about.work.experiences.map((experience: Experience, index: number) => experience.company)
         },
         { 
             title: about.studies.title,
             display: about.studies.display,
-            items: about.studies.institutions.map(institution => institution.name)
+            items: about.studies.institutions.map((institution: Institution, index: number) => institution.name)
         },
         { 
             title: about.technical.title,
             display: about.technical.display,
-            items: about.technical.skills.map(skill => skill.title)
+            items: about.technical.skills.map((skill: Skill, index: number) => skill.title)
         },
     ]
     return (
@@ -83,8 +86,8 @@ export default function About(
                         url: `https://${baseURL}/about`,
                         image: `${baseURL}/images/${person.avatar}`,
                         sameAs: social
-                            .filter((item) => item.link && !item.link.startsWith('mailto:')) // Filter out empty links and email links
-                            .map((item) => item.link),
+                            .filter((item: { link: string }) => item.link && !item.link.startsWith('mailto:'))
+                            .map((item: { link: string }) => item.link),
                         worksFor: {
                             '@type': 'Organization',
                             name: about.work.experiences[0].company || ''
@@ -125,7 +128,7 @@ export default function About(
                             <Flex
                                 wrap
                                 gap="8">
-                                {person.languages.map((language, index) => (
+                                {person.languages.map((language: string, index: number) => (
                                     <Tag
                                         key={index}
                                         size="l">
@@ -186,7 +189,7 @@ export default function About(
                             <Flex
                                 className={styles.blockAlign}
                                 paddingTop="20" paddingBottom="8" gap="8" wrap>
-                                {social.map((item) => (
+                                {social.map((item: { name: string; link: string; icon: string }) => (
                                     item.link && (
                                         <Button
                                             key={item.name}
@@ -222,7 +225,7 @@ export default function About(
                             <Flex
                                 direction="column"
                                 fillWidth gap="l" marginBottom="40">
-                                {about.work.experiences.map((experience, index) => (
+                                {about.work.experiences.map((experience: Experience, index: number) => (
                                     <Flex
                                         key={`${experience.company}-${experience.role}-${index}`}
                                         fillWidth
@@ -252,7 +255,7 @@ export default function About(
                                         <Flex
                                             as="ul"
                                             direction="column" gap="16">
-                                            {experience.achievements.map((achievement: string, index: any) => (
+                                            {experience.achievements.map((achievement: ReactNode, index: number) => (
                                                 <Text
                                                     as="li"
                                                     variant="body-default-m"
@@ -261,27 +264,21 @@ export default function About(
                                                 </Text>
                                             ))}
                                         </Flex>
-                                        {experience.images.length > 0 && (
+                                        {experience.images.map((image: ContentImage, index: number) => (
                                             <Flex
-                                                fillWidth paddingTop="m" paddingLeft="40"
-                                                wrap>
-                                                {experience.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        borderStyle="solid-1"
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
-                                                    </Flex>
-                                                ))}
+                                                key={index}
+                                                border="neutral-medium"
+                                                borderStyle="solid-1"
+                                                radius="m"
+                                                minWidth={image.width} height={image.height}>
+                                                <SmartImage
+                                                    enlarge
+                                                    radius="m"
+                                                    sizes={image.width.toString()}
+                                                    alt={image.alt}
+                                                    src={image.src}/>
                                             </Flex>
-                                        )}
+                                        ))}
                                     </Flex>
                                 ))}
                             </Flex>
@@ -300,13 +297,13 @@ export default function About(
                             <Flex
                                 direction="column"
                                 fillWidth gap="l" marginBottom="40">
-                                {about.studies.institutions.map((institution, index) => (
+                                {about.studies.institutions.map((institution: Institution, index: number) => (
                                     <Flex
                                         key={`${institution.name}-${index}`}
                                         fillWidth gap="4"
                                         direction="column">
                                         <Text
-                                            id={institution.name}
+                                            id={typeof institution.name === 'string' ? institution.name : undefined}
                                             variant="heading-strong-l">
                                             {institution.name}
                                         </Text>
@@ -332,7 +329,7 @@ export default function About(
                             <Flex
                                 direction="column"
                                 fillWidth gap="l">
-                                {about.technical.skills.map((skill, index) => (
+                                {about.technical.skills.map((skill: Skill, index: number) => (
                                     <Flex
                                         key={`${skill}-${index}`}
                                         fillWidth gap="4"
@@ -346,27 +343,21 @@ export default function About(
                                             onBackground="neutral-weak">
                                             {skill.description}
                                         </Text>
-                                        {skill.images.length > 0 && (
+                                        {skill.images.map((image: ContentImage, index: number) => (
                                             <Flex
-                                                fillWidth paddingTop="m" gap="12"
-                                                wrap>
-                                                {skill.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        borderStyle="solid-1"
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
-                                                    </Flex>
-                                                ))}
+                                                key={index}
+                                                border="neutral-medium"
+                                                borderStyle="solid-1"
+                                                radius="m"
+                                                minWidth={image.width} height={image.height}>
+                                                <SmartImage
+                                                    enlarge
+                                                    radius="m"
+                                                    sizes={image.width.toString()}
+                                                    alt={image.alt}
+                                                    src={image.src}/>
                                             </Flex>
-                                        )}
+                                        ))}
                                     </Flex>
                                 ))}
                             </Flex>
